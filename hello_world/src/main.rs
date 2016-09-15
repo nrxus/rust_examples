@@ -1,4 +1,4 @@
-use std::fmt;
+use std::fmt::{self, Formatter, Display, Result};
 
 #[derive(Debug)]
 struct Structure(i32);
@@ -20,40 +20,40 @@ struct Complex {
 
 struct List(Vec<i32>);
 
-impl fmt::Display for Structure {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Structure {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         let Structure(number) = *self;
         write!(f, "{}", number)
     }
 }
 
-impl fmt::Display for MinMax {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for MinMax {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         let MinMax(min, max) = *self;
         write!(f, "({}, {})", min, max)
     }
 }
 
-impl fmt::Display for Point2 {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Point2 {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "x: {}, y: {}", self.x, self.y)
     }
 }
 
 impl fmt::Binary for Point2 {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "x: {:b}, y: {:b}", self.x as i64, self.y as i64)
     }
 }
 
-impl fmt::Display for Complex {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Complex {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "{} + {}i", self.real, self.imag)
     }
 }
 
-impl fmt::Display for List {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for List {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         let List(ref vec) = *self;
 
         try!(write!(f, "["));
