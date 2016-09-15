@@ -6,17 +6,32 @@ struct Structure(i32);
 #[derive(Debug)]
 struct MinMax(i64, i64);
 
+#[derive(Debug)]
+struct Point2 {
+    x: f64,
+    y: f64,
+}
+
+#[derive(Debug)]
+struct Complex {
+    real: f64,
+    imag: f64,
+}
+
+struct List(Vec<i32>);
+
+impl fmt::Display for Structure {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let Structure(number) = *self;
+        write!(f, "{}", number)
+    }
+}
+
 impl fmt::Display for MinMax {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let MinMax(min, max) = *self;
         write!(f, "({}, {})", min, max)
     }
-}
-
-#[derive(Debug)]
-struct Point2 {
-    x: f64,
-    y: f64,
 }
 
 impl fmt::Display for Point2 {
@@ -31,15 +46,27 @@ impl fmt::Binary for Point2 {
     }
 }
 
-#[derive(Debug)]
-struct Complex {
-    real: f64,
-    imag: f64,
-}
-
 impl fmt::Display for Complex {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{} + {}i", self.real, self.imag)
+    }
+}
+
+impl fmt::Display for List {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let List(ref vec) = *self;
+
+        try!(write!(f, "["));
+
+        for (count, v) in vec.iter().enumerate() {
+            try!(write!(f, "{}: ", count));
+            try!(write!(f, "{}", v));
+            if count != vec.len() - 1 {
+                try!(write!(f, ", "));
+            }
+        }
+
+        write!(f, "]")
     }
 }
 
@@ -65,12 +92,6 @@ fn format_example() {
     // this won't compile
     // println!("My name is {0}, {1} {0}", "Bond");
     println!("My name is {0}, {1} {0}", "Bond", "James");
-    impl fmt::Display for Structure {
-        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-            let Structure(number) = *self;
-            write!(f, "{}", number)
-        }
-    }
     println!("This struct `{}` WILL print...", Structure(3));
     let pi = 3.141592;
     println!("Pi is roughly {pi:.dec_places$}", pi = pi, dec_places = 2);
@@ -119,10 +140,16 @@ fn display_example() {
     println!("Debug: {:?}", complex);
 }
 
+fn try_example() {
+    let v = List(vec![1, 2, 3]);
+    println!("{}", v);
+}
+
 fn main() {
     hello_world_example();
     comment_example();
     format_example();
     debug_format_example();
     display_example();
+    try_example();
 }
