@@ -1,12 +1,16 @@
-fn main() {
-    // hello world
-    println!("Hello, world!");
+#[derive(Debug)]
+struct Structure(i32);
 
-    // comment blocks
+fn hello_world_example() {
+    println!("Hello, world!");
+}
+
+fn comment_example() {
     let x = 5 + /*+ 90 + */5;
     println!("Is `x` 10 or 100? x = {}", x);
+}
 
-    // println format
+fn format_example() {
     println!("{} days", 31);
     println!("{0}, this is {1}, {1}, this is {0}", "Alice", "Bob");
     println!("{subject} {verb} {object}",
@@ -19,8 +23,6 @@ fn main() {
     // this won't compile
     // println!("My name is {0}, {1} {0}", "Bond");
     println!("My name is {0}, {1} {0}", "Bond", "James");
-    #[derive(Debug)]
-    struct Structure(i32);
     impl std::fmt::Display for Structure {
         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
             let Structure(number) = *self;
@@ -30,8 +32,9 @@ fn main() {
     println!("This struct `{}` WILL print...", Structure(3));
     let pi = 3.141592;
     println!("Pi is roughly {pi:.dec_places$}", pi = pi, dec_places = 2);
+}
 
-    // debug format
+fn debug_format_example() {
     #[derive(Debug)]
     struct Deep(Structure);
 
@@ -42,4 +45,11 @@ fn main() {
              actor = "actor's");
     println!("Now {:?} will print!", Structure(3));
     println!("Now {:?} will print!", Deep(Structure(7)));
+}
+
+fn main() {
+    hello_world_example();
+    comment_example();
+    format_example();
+    debug_format_example();
 }
