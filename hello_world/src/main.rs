@@ -101,14 +101,13 @@ impl Display for City {
 impl Display for Color {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         write!(f,
-               "RGB ({}, {}, {}) {:#X}{:>0width$X}{:>0width$X}",
+               "RGB ({}, {}, {}) {:#04X}{:02X}{:02X}",
                self.red,
                self.green,
                self.blue,
                self.red,
                self.green,
-               self.blue,
-               width = 2)
+               self.blue)
     }
 }
 
