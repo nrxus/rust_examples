@@ -1,3 +1,5 @@
+use std::fmt;
+
 fn primitives_operations_examples() {
     println!("1 + 2 = {}", 1u32 + 2);
     println!("1 - 2 = {}", 1i32 - 2);
@@ -19,6 +21,18 @@ fn reverse(pair: (i32, bool)) -> (bool, i32) {
 #[derive(Debug)]
 struct Matrix(f32, f32, f32, f32);
 
+impl Matrix {
+    fn transpose(&self) -> Matrix {
+        Matrix(self.0, self.2, self.1, self.3)
+    }
+}
+
+impl fmt::Display for Matrix {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "( {} {} )\n( {} {} )", self.0, self.1, self.2, self.3)
+    }
+}
+
 fn tuples_examples() {
     let long_tuple = (1u8, 2u16, 4u64, -1i8, -2i16, -3i32, -4i64, 0.1f32, 0.2f64, 'a', true);
     println!("long tuple first vale: {}", long_tuple.0);
@@ -37,7 +51,9 @@ fn tuples_examples() {
     println!("{:?}, {:?}, {:?}, {:?}", a, b, c, d);
 
     let matrix = Matrix(1.1, 1.2, 2.1, 2.2);
-    println!("{:?}", matrix)
+    println!("DEBUG: \n{:?}", matrix);
+    println!("MATRIX: \n{}", matrix);
+    println!("TRANSPOSE: \n{}", matrix.transpose())
 }
 
 fn main() {
