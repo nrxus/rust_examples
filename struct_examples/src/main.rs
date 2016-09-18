@@ -32,7 +32,7 @@ fn square(point: Point, width: f32) -> Rectangle {
     }
 }
 
-fn main() {
+fn struct_examples() {
     let point: Point = Point { x: 0.3, y: 0.4 };
     println!("point coordinates: ({}, {})", point.x, point.y);
     let Point { x: my_x, y: my_y } = point;
@@ -64,4 +64,46 @@ fn main() {
     println!("pair contains {:?} and {:?}", integer, decimal);
 
     println!("square: {:?}", square(Point { x: 1.3, y: 3.7 }, 3.2));
+}
+
+enum Person {
+    Engineer,
+    Scientist,
+    Height(i32),
+    Weight(i32),
+    Info { name: String, height: i32 },
+}
+
+fn inspect(p: Person) {
+    match p {
+        Person::Engineer => println!("Is an engineer!"),
+        Person::Scientist => println!("Is a scientist!"),
+        Person::Height(i) => println!("Has a height of {}.", i),
+        Person::Weight(i) => println!("Has a weight of {}", i),
+        Person::Info { name, height } => {
+            println!("{} is {} tall!", name, height);
+        }
+    }
+}
+
+fn enum_examples() {
+    let person = Person::Height(18);
+    let amira = Person::Weight(10);
+    let dave = Person::Info {
+        name: "Dave".to_owned(),
+        height: 72,
+    };
+    let rebecca = Person::Scientist;
+    let rohan = Person::Engineer;
+
+    inspect(person);
+    inspect(amira);
+    inspect(dave);
+    inspect(rebecca);
+    inspect(rohan);
+}
+
+fn main() {
+    struct_examples();
+    enum_examples();
 }
