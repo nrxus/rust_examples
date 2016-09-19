@@ -133,8 +133,70 @@ fn use_examples() {
     }
 }
 
+enum Number {
+    Zero,
+    One,
+    Two,
+}
+
+enum Color {
+    Red = 0xff0000,
+    Green = 0x00ff00,
+    Blue = 0x0000ff,
+}
+
+fn c_enum_examples() {
+    println!("zero is {}", Number::Zero as i32);
+    println!("one is {}", Number::One as i32);
+    println!("roses are #{:06x}", Color::Red as i32);
+    println!("violets are #{:06x}", Color::Blue as i32);
+}
+
+use List::*;
+
+enum List {
+    Cons(u32, Box<List>),
+    ListNil,
+}
+
+impl List {
+    fn new() -> List {
+        ListNil
+    }
+
+    fn prepend(self, elem: u32) -> List {
+        Cons(elem, Box::new(self))
+    }
+
+    fn len(&self) -> u32 {
+        match *self {
+            Cons(_, ref tail) => 1 + tail.len(),
+            ListNil => 0,
+        }
+    }
+
+    fn stringify(&self) -> String {
+        match *self {
+            Cons(head, ref tail) => format!("{}, {}", head, tail.stringify()),
+            ListNil => format!("Nil"),
+        }
+    }
+}
+
+fn linked_list_example() {
+    let mut list = List::new();
+    list = list.prepend(1);
+    list = list.prepend(2);
+    list = list.prepend(3);
+
+    println!("linked list has length: {}", list.len());
+    println!("{}", list.stringify());
+}
+
 fn main() {
     struct_examples();
     enum_examples();
     use_examples();
+    c_enum_examples();
+    linked_list_example();
 }
