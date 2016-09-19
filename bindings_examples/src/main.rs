@@ -44,8 +44,25 @@ fn scope_examples() {
     println!("outer long: {}", long_lived_binding);
 }
 
+fn declaring_examples() {
+    let a_binding;
+    {
+        let x = 2;
+        a_binding = x * x;
+    }
+    println!("a binding: {}", a_binding);
+
+    let another_binding: i32;
+    // cannot be used before binding
+    // println!("another building: {}", another_binding);
+
+    another_binding = 1;
+    println!("another binding: {}", another_binding);
+}
+
 fn main() {
     variable_bindings_examples();
     mutability_examples();
     scope_examples();
+    declaring_examples();
 }
