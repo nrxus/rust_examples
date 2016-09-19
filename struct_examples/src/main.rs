@@ -193,10 +193,26 @@ fn linked_list_example() {
     println!("{}", list.stringify());
 }
 
+static LANGUAGE: &'static str = "Rust";
+const THRESHOLD: i32 = 10;
+
+fn is_big(n: i32) -> bool {
+    n > THRESHOLD
+}
+
+fn constant_examples() {
+    let n = 16;
+
+    println!("This is {}", LANGUAGE);
+    println!("The threshold is {}", THRESHOLD);
+    println!("{} is {}", n, if is_big(n) { "big" } else { "small" });
+}
+
 fn main() {
     struct_examples();
     enum_examples();
     use_examples();
     c_enum_examples();
     linked_list_example();
+    constant_examples();
 }
