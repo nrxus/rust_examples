@@ -13,6 +13,39 @@ fn variable_bindings_examples() {
     let _noisy_unused_variable = 2u32;
 }
 
+fn mutability_examples() {
+    let _immutable_binding = 1;
+    let mut mutable_binding = 1;
+    println!("Before mutation: {}", mutable_binding);
+
+    mutable_binding += 1;
+    println!("After mutation: {}", mutable_binding);
+
+    // cannot modify an immutable binding
+    // _immutable_binding += 1;
+}
+
+fn scope_examples() {
+    let long_lived_binding = 1;
+    {
+        let short_lived_binding = 2;
+        println!("inner short: {}", short_lived_binding);
+
+        let long_lived_binding = 5_f32;
+        println!("inner long: {}", long_lived_binding);
+    }
+
+    // cannot use out-of-scope binding
+    // println!("outer short: {}", short_lived_binding);
+
+    println!("outer long: {}", long_lived_binding);
+
+    let long_lived_binding = 'a';
+    println!("outer long: {}", long_lived_binding);
+}
+
 fn main() {
     variable_bindings_examples();
+    mutability_examples();
+    scope_examples();
 }
