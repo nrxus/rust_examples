@@ -32,7 +32,15 @@ fn literals() {
     println!("size of `f` in bytes: {}", std::mem::size_of_val(&f));
 }
 
+fn inferance_examples() {
+    let elem = 5u8;
+    let mut vec = Vec::new();
+    vec.push(elem);
+    println!("{:?}", vec);
+}
+
 fn main() {
     basic_casting_examples();
     literals();
+    inferance_examples();
 }
